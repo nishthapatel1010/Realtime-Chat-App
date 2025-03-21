@@ -1,12 +1,16 @@
+// user.routes.js
 import express from "express";
-import { signup, signin } from "../controller/user.controller.js"; // Import both functions
+import { signup, signin, logout } from "../controller/user.controller.js";
 
 const router = express.Router();
 
-// Route for user signup
+// Signup route
 router.post("/signup", signup);
 
-// Route for user signin
+// Signin route
 router.post("/signin", signin);
+
+// Logout route (doesn't need to do anything on the backend since the client removes the JWT)
+router.post("/logout", logout);
 
 export default router;

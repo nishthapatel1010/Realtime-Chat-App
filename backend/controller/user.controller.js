@@ -74,3 +74,16 @@ export const signin = async (req, res) => {
         res.status(500).json({ message: "Server error", error: error.message });
     }
 };
+
+// logout function 
+// user.controller.js
+export const logout = (req, res) => {
+    try {
+        // No action needed on the backend since we are not using cookies
+        res.status(200).json({
+            message: "User logged out successfully. You can now remove the token from localStorage on the client-side.",
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};

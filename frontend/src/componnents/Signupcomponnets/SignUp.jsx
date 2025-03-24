@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import axios from "axios";
 import { useAuth } from "../../context/AuthProvider";
 
@@ -48,7 +49,7 @@ function SignUp() {
     try {
       const { data } = await axios.post("http://localhost:5002/api/users/signup", formData);
       localStorage.setItem("userData", JSON.stringify(data));
-      setAuthUser(data); // Update auth context with the user data
+      setAuthUser(data);
       setMessage("Sign-up successful! Redirecting...");
       setTimeout(() => {
         window.location.href = "/login";
@@ -58,7 +59,6 @@ function SignUp() {
       setMessage(error.response?.data?.message || "Something went wrong. Please try again.");
     }
   };
-  
 
   return (
     <div className="flex h-screen justify-center items-center bg-gray-100">
@@ -82,7 +82,7 @@ function SignUp() {
             {!errors.passwordMatch && <span className="text-red-500 text-xs">Passwords do not match!</span>}
           </label>
           <p className="text-center text-gray-600 text-sm">
-            Have an account? <a href="/login" className="text-blue-500 hover:underline">Login</a>
+            Have an account? <Link to="/login" className="text-blue-500 hover:underline">Login</Link>
           </p>
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition">Sign Up</button>
         </div>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
+// import Cookies from "js-cookie";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -8,6 +10,8 @@ function SignIn() {
   });
 
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // 'success' or 'error'
+
   const [errors, setErrors] = useState({
     email: false,
     password: false,
@@ -37,6 +41,7 @@ function SignIn() {
 
     if (errors.email || errors.password || !formData.email || !formData.password) {
       setMessage("Please fix the errors before submitting!");
+      setMessageType("error");
       return;
     }
 
@@ -45,16 +50,19 @@ function SignIn() {
 
       const { data } = await axios.post("http://localhost:5002/api/users/signin", formData, {
         headers: { "Content-Type": "application/json" },
+        withCredentials: true,
       });
-
+      // Cookies.set("authToken", data.token, { expires: 7 });
       localStorage.setItem("userData", JSON.stringify(data));
       setMessage("Sign-in successful! Redirecting...");
+      setMessageType("success"); // Set success type
       setTimeout(() => {
         window.location.href = "/";
       }, 2000);
     } catch (error) {
       console.error("Sign-in Error:", error);
       setMessage(error.response?.data?.message || "Something went wrong. Please try again.");
+      setMessageType("error"); // Set error type
     }
   };
 
@@ -64,7 +72,12 @@ function SignIn() {
         <h1 className="text-2xl font-bold text-center text-blue-600">Messenger</h1>
         <h2 className="text-gray-600 text-center mb-4">Sign in to your account</h2>
 
-        {message && <p className="text-center text-red-500 text-sm">{message}</p>}
+        {/* Success or Error Message */}
+        {message && (
+          <p className={`text-center text-sm ${messageType === "success" ? "text-green-500" : "text-red-500"}`}>
+            {message}
+          </p>
+        )}
 
         <div className="space-y-4">
           {/* Email */}
@@ -100,9 +113,9 @@ function SignIn() {
           {/* Sign Up Link & Button */}
           <p className="text-center text-gray-600 text-sm">
             Don't have an account?{" "}
-            <a href="/signup" className="text-blue-500 hover:underline">
+            <Link to="/signup" className="text-blue-500 hover:underline">
               Sign Up
-            </a>
+            </Link>
           </p>
 
           <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">

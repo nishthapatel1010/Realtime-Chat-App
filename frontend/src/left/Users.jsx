@@ -1,17 +1,20 @@
 import React from "react";
+import User from "./User";
+import userGetAllUsers from "../context/userGetAllUsers";
 
 function Users() {
+  const [alluser, loading] = userGetAllUsers();
+  console.log(alluser);
+
   return (
-    <div className="flex space-x-4 px-6 py-7 hover:bg-slate-600 duration-300 cursor-pointer ">
-      <div className="avatar avatar-online">
-        <div className="w-14 rounded-full">
-          <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-        </div>
-      </div>
-      <div>
-        <h1 className="font-bold">Nishtha Patel</h1>
-        <span>nishtha@gmail.com</span>
-      </div>
+    <div
+      style={{ maxHeight: "calc(84vh - 5vh" }}
+      className="py-2 overflow-y-auto"
+    >
+      {alluser.map((user, index) => {
+        return <User key={index} user={user} />;
+      })}
+     
     </div>
   );
 }

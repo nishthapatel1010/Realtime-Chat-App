@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import cors from "cors";  // Import the cors package
 import userRoutes from "./route/user.route.js";
 
@@ -11,8 +12,14 @@ const PORT = process.env.PORT || 5002;
 const URI = process.env.MONGODB_URI;
 
 // Middleware
-app.use(cors());  // Allow all cross-origin requests (you can customize it further if needed)
+app.use(
+    cors({
+      origin: 'http://localhost:5173',  // Replace with your frontend URL
+      credentials: true,  // This is the crucial part to allow cookies
+    })
+  ); // Allow all cross-origin requests (you can customize it further if needed)
 app.use(express.json());
+app.use(cookieParser())
 
 // Database Connection
 mongoose.connect(URI, {

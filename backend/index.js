@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import cors from "cors";  // Import the cors package
 import userRoutes from "./route/user.route.js";
+import MessageRoute from './route/message.route.js'
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ mongoose.connect(URI, {
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/message", MessageRoute);
 
 // Server Listening
 app.listen(PORT, () => {

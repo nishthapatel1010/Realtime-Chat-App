@@ -107,7 +107,7 @@ export const logout = (req, res) => {
 export const userProfile = async (req, res) => {
   try {
     // Get the logged-in user's ID from the request object (after secure route validation)
-    const loggedInUser = req.User._id;
+    const loggedInUser = req.user._id;
 
     // Find all users excluding the logged-in user
     const filteredUsers = await User.find({

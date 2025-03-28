@@ -19,7 +19,8 @@ try {
     if(!user){
         return res.status(404).json({message:"User not found"})
     }
-    req.User=user;
+    req.user=user;
+    // console.log(req.User)
     next();
 } catch (error) {
     console.log(error)

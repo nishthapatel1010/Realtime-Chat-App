@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -52,10 +52,16 @@ function SignIn() {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
-      // Cookies.set("authToken", data.token, { expires: 7 });
-      localStorage.setItem("userData", JSON.stringify(data));
-      setMessage("Sign-in successful! Redirecting...");
-      setMessageType("success"); // Set success type
+      console.log("Login response:", data);
+      if (!data.token) {
+        console.error("No token in response:", data);
+      } else {
+        
+        Cookies.set("jwt", data.token, { expires: 7 });
+        localStorage.setItem("userData", JSON.stringify(data));
+        setMessage("Sign-in successful! Redirecting...");
+        setMessageType("success"); // Set success type
+      }
       setTimeout(() => {
         window.location.href = "/";
       }, 2000);

@@ -1,15 +1,28 @@
 import React from "react";
+
 function Message({ message }) {
-  console.log("Message prop:", message); // Debug
-  const authUser=JSON.parse(localStorage.getItem("userData"));
-  // console.log("authuser",authUser)
-  const itsme=message.senderId === authUser.user._id;
-  const chatName=itsme? "chat-end" : "chat-start";
-  const chatColor=itsme?"bg-blue-400":"";
+  // Parse the authenticated user from localStorage
+  const authUser = JSON.parse(localStorage.getItem("userData"));
+
+  // Debug logs to verify data
+  // console.log("Message prop:", JSON.stringify(message, null, 2));
+  // console.log("authUser:", JSON.stringify(authUser, null, 2));
+  // console.log("message.sender:", message.sender);
+  // console.log("authUser.user._id:", authUser.user._id);
+
+  // Check if the message is from the authenticated user
+  const itsMe = message.sender === authUser.user._id;
+  // console.log("itsMe:", itsMe);
+
+  // Determine alignment and styling
+  const chatAlignment = itsMe ? "chat-end self-end" : "chat-start self-start"; // Explicit alignment
+  const chatColor = itsMe ? "bg-blue-400 text-white" : "bg-gray-200 text-gray-700"; // Sender blue, receiver gray
 
   return (
-    <div className={`chat ${chatName}`}>
-      <div className={`chat-bubble text-gray-700 ${chatColor}`}>{message.message}</div>
+    <div className={`chat ${chatAlignment} mb-2 w-full`}>
+      <div className={`chat-bubble ${chatColor} p-2 rounded-lg max-w-xs`}>
+        {message.message || "No content"}
+      </div>
     </div>
   );
 }

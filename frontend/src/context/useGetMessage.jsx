@@ -11,7 +11,7 @@ function useGetMessage() {
     const getMessages = async () => {
       setLoading(true);
       setError(null);
-      console.log("Selected Conversion:", selectedConversion);
+      // console.log("Selected Conversion:", selectedConversion);
       if (selectedConversion && selectedConversion._id) {
         try {
           const response = await axios.get(
@@ -20,10 +20,10 @@ function useGetMessage() {
           );
           // Extract the 'messages' array from response.data, fallback to empty array
           const data = Array.isArray(response.data.messages) ? response.data.messages : [];
-          console.log("API Response:", response.data);
-          console.log("Extracted messages:", data);
+          // console.log("API Response:", response.data);
+          // console.log("Extracted messages:", data);
           setMessages(data);
-          console.log("Messages after set:", userConversionStore.getState().messages);
+          // console.log("Messages after set:", userConversionStore.getState().messages);
         } catch (error) {
           setError(error);
           console.log("Error", error);

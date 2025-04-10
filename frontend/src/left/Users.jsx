@@ -4,7 +4,7 @@ import userGetAllUsers from "../context/userGetAllUsers";
 
 function Users() {
   const [alluser, loading] = userGetAllUsers();
-  console.log(alluser);
+  // console.log(alluser);
 
   return (
     <div

@@ -6,7 +6,18 @@ import Loading from "../componnents/Loading/Loading.jsx";
 function Messages() {
   const { messages, loading, error } = useGetMessage();
   // console.log("Messages before render:", messages);
-  console.log("Is array?", Array.isArray(messages), "Length:", messages?.length);
+  // console.log("Is array?", Array.isArray(messages), "Length:", messages?.length);
+
+  // for last message 
+  // const lastMessageRef= useRef();
+  // useEffect(() => {
+  //   setTimeout(()=>{
+  //     if(lastMessageRef.current){
+  //       lastMessageRef.current.scrollIntoView({behavior:"smooth"})
+  //     }
+  //   },100)
+  // }, [messages])
+  
 
   if (loading) {
     return (

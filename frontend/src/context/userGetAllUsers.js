@@ -13,7 +13,7 @@ function userGetAllUsers() {
         // Logging cookies to check if the browser is sending the cookie automatically
         // console.log("All cookies: ", document.cookie); // You can inspect this in browser dev tools
         const token = Cookies.get("jwt");
-        console.log("JWT from Cookies:", token);
+        // console.log("JWT from Cookies:", token);
         // Sending a request to get user data with 'withCredentials' to include cookies in the request
         const response = await axios.get(
           "http://localhost:5002/api/users/getuserdata",
@@ -25,7 +25,7 @@ function userGetAllUsers() {
           }
         );
 
-        console.log("Fetched Users:", response.data); // Log the response for debugging
+        // console.log("Fetched Users:", response.data); // Log the response for debugging
         setAllUsers(response.data); // Set the fetched users in state
       } catch (error) {
         console.error("Error in fetching users:", error); // Log the error
